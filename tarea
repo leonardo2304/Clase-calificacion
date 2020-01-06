@@ -1,0 +1,42 @@
+CREATE DATABASE Ejercicio1
+GO
+
+USE Ejercicio1
+CREATE TABLE tblCliente
+(
+	DNI				CHAR(8)		PRIMARY KEY,
+	Nombre			VARCHAR(30)	NOT NULL,
+	Edad			TINYINT		NOT NULL DEFAULT 0,
+	FechaRegistro	DATETIME	NOT NULL
+)
+GO
+
+SET DATEFORMAT DMY
+INSERT INTO tblCliente
+(DNI,Nombre,Edad,FechaRegistro)
+VALUES
+('81145110','Melina',22,'05/10/2020'),
+('51114444','Yesenia',23,'12/11/2020'),
+('71113333','Alicia',19,'07/07/2020')
+GO
+
+CREATE PROC usp_Cliente_Insertar
+@parDNI CHAR(8),
+@parNombre VARCHAR(30),
+@parEdad TINYINT
+AS
+INSERT INTO tblCliente
+(DNI,Nombre,Edad,FechaRegistro)
+VALUES
+(@parDNI,@parNombre,@parEdad,GETDATE())
+GO
+
+
+
+CREATE PROC usp_Cliente_Listar_Todo
+AS
+SELECT DNI,Nombre,Edad,FechaRegistro
+FROM tblCliente
+ORDER BY Nombre
+GO
+
